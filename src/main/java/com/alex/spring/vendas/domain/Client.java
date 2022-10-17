@@ -22,6 +22,8 @@ public class Client {
     private Level level = Level.BRONZE;
     @Column(nullable = false)
     private LocalDate created_at;
+    @Column(nullable = false)
+    private Integer purchases = 0;
 
     public Integer getId() {
         return id;
@@ -69,5 +71,13 @@ public class Client {
 
     public void setCreated_at(LocalDate created_at) {
         this.created_at = created_at;
+    }
+
+    public Integer getPurchases() {
+        return purchases;
+    }
+
+    public void setPurchases(Integer purchases) {
+        this.purchases = purchases;
     }
 }
