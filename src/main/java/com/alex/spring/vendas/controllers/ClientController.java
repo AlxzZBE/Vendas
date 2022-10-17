@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/clients")
@@ -36,8 +37,23 @@ public class ClientController {
         return ResponseEntity.ok(clientService.findClients(pageable));
     }
 
-    @GetMapping(params = "id")
+    @GetMapping(params = "id", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ClientGetOne> findClientById(@RequestParam Integer id) {
         return ResponseEntity.ok(clientService.findClientById(id));
+    }
+
+    @GetMapping(params = "name", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<ClientGetList>> findClientByName(@RequestParam String name) {
+        return ResponseEntity.ok(clientService.findClientByName(name));
+    }
+
+    @GetMapping(params = "gender", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Page<ClientGetList>> findClientByGender(@RequestParam String gender, Pageable pageable) {
+        return ResponseEntity.ok(clientService.findClientByGender(gender, pageable));
+    }
+
+    @GetMapping(params = "level", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Page<ClientGetList>> findClientByLevel(@RequestParam String level, Pageable pageable) {
+        return ResponseEntity.ok(clientService.findClientByLevel(level, pageable));
     }
 }

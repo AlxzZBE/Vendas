@@ -22,7 +22,7 @@ public class RestExceptionHandler {
     public ResponseEntity<ExceptionDetails> handlerArgumentNotValidException(ArgumentNotValidException ex) {
         return new ResponseEntity<>(new ExceptionDetails(
                 ex, "Argument Not Valid Exception, check the details and developer message.",
-                "Probably the argument doesn't match with acceptable."), HttpStatus.BAD_REQUEST);
+                "Probably the argument doesn't match with the acceptable."), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

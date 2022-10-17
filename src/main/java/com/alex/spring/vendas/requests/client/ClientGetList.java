@@ -2,7 +2,6 @@ package com.alex.spring.vendas.requests.client;
 
 import com.alex.spring.vendas.domain.Client;
 import com.alex.spring.vendas.domain.Level;
-import com.alex.spring.vendas.requests.address.AddressGetList;
 
 import java.time.LocalDate;
 
