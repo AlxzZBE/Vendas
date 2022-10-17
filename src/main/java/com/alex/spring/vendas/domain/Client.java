@@ -13,11 +13,12 @@ public class Client {
     private Integer id;
     @Column(nullable = false, length = 100)
     private String name;
-    @Column(length = 1)
-    private Character gender;
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Address> address;
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private Level level = Level.BRONZE;
     @Column(nullable = false)
     private LocalDate created_at;
@@ -38,11 +39,11 @@ public class Client {
         this.name = name;
     }
 
-    public Character getGender() {
+    public Gender getGender() {
         return gender;
     }
 
-    public void setGender(Character gender) {
+    public void setGender(Gender gender) {
         this.gender = gender;
     }
 

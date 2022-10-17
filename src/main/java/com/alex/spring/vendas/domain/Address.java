@@ -21,23 +21,9 @@ public class Address {
     private String street;
     @Column(nullable = false, length = 20)
     private String number;
+    private String name;
     private String bairro;
     private String complemento;
-
-    @Override
-    public String toString() {
-        return "Address{" +
-                "id=" + id +
-                ", client=" + client +
-                ", postalCode='" + postalCode + '\'' +
-                ", uf='" + uf + '\'' +
-                ", city='" + city + '\'' +
-                ", street='" + street + '\'' +
-                ", number='" + number + '\'' +
-                ", bairro='" + bairro + '\'' +
-                ", complemento='" + complemento + '\'' +
-                '}';
-    }
 
     public Integer getId() {
         return id;
@@ -69,6 +55,10 @@ public class Address {
 
     public String getNumber() {
         return number;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public String getBairro() {
