@@ -65,4 +65,10 @@ public class ProductController {
         productService.updateProductNameById(id, name);
         return ResponseEntity.noContent().build();
     }
+
+    @DeleteMapping(params = "id")
+    public ResponseEntity<Void> deleteProductbyId(@RequestParam Integer id) {
+        productService.deleteProductById(id);
+        return ResponseEntity.noContent().build();
+    }
 }

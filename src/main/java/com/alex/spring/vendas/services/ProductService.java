@@ -1,6 +1,7 @@
 package com.alex.spring.vendas.services;
 
 import com.alex.spring.vendas.domain.Product;
+import com.alex.spring.vendas.exceptions.ArgumentNotValidException;
 import com.alex.spring.vendas.exceptions.NotFoundException;
 import com.alex.spring.vendas.repositories.ProductRepository;
 import com.alex.spring.vendas.requests.product.ProductGetList;
@@ -58,10 +59,17 @@ public class ProductService {
         productRepository.save(productSaved);
     }
 
-    public void updateProductNameById(Integer id, @NotBlank(message = "The field `name` cannot be empty.")
-    @Length(min = 3, message = "The field `name` should've minimum three characters.") String name) {
+    public void updateProductNameById(Integer id, String name) {
+        if (name.length() < 3) {
+            throw new ArgumentNotValidException("The field `name` should've minimum three characters.");
+        }
         Product productSaved = findProductById(id);
         productSaved.setName(name);
         productRepository.save(productSaved);
+    }
+
+    public void deleteProductById(Integer id) {
+        findProductById(id);
+        productRepository.deleteById(id);
     }
 }
