@@ -42,4 +42,11 @@ public class ProductService {
         return new ProductGetOne(productRepository.findByNameIgnoreCase(name)
                 .orElseThrow(() -> new NotFoundException("Not Found Product with name `%s`.".formatted(name))));
     }
+
+    public void updateProductAmountById(Integer id, Long amount) {
+        Product productSaved = productRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Not Found Product with id `%d`.".formatted(id)));
+        productSaved.setAmount(amount);
+        productRepository.save(productSaved);
+    }
 }

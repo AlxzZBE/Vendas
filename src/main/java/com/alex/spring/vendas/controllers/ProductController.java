@@ -47,4 +47,10 @@ public class ProductController {
     public ResponseEntity<ProductGetOne> findProductByName(@RequestParam String name) {
         return ResponseEntity.ok(productService.findProductByName(name));
     }
+
+    @PatchMapping(path = "{id}", params = "amount")
+    public ResponseEntity<Void> updateProductAmountById(@PathVariable Integer id, @RequestParam Long amount) {
+        productService.updateProductAmountById(id, amount);
+        return ResponseEntity.noContent().build();
+    }
 }
