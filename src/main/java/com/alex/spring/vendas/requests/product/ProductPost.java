@@ -26,7 +26,7 @@ public class ProductPost {
         newProduct.setPrice(this.price);
         newProduct.setCategory(this.category);
         newProduct.setDescription(this.description);
-        newProduct.setAmount(this.amount);
+        newProduct.setAmount(this.amount != null ? this.amount : 0);
         newProduct.setCreated_at(LocalDate.now());
         return newProduct;
     }

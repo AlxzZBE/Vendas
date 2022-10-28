@@ -1,6 +1,7 @@
 package com.alex.spring.vendas.domain;
 
 import jakarta.persistence.*;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -18,7 +19,7 @@ public class Product {
     private Category category;
     private String description;
     @Column(nullable = false)
-    private Long amount = 0L;
+    private Long amount;
     private String imageName;
     @Column(nullable = false)
     private LocalDate created_at;
