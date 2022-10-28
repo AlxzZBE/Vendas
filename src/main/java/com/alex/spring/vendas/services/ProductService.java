@@ -5,6 +5,8 @@ import com.alex.spring.vendas.exceptions.NotFoundException;
 import com.alex.spring.vendas.repositories.ProductRepository;
 import com.alex.spring.vendas.requests.product.ProductGetList;
 import jakarta.transaction.Transactional;
+import jakarta.validation.constraints.NotBlank;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -53,6 +55,13 @@ public class ProductService {
     public void updateProductPriceById(Integer id, BigDecimal price) {
         Product productSaved = findProductById(id);
         productSaved.setPrice(price);
+        productRepository.save(productSaved);
+    }
+
+    public void updateProductNameById(Integer id, @NotBlank(message = "The field `name` cannot be empty.")
+    @Length(min = 3, message = "The field `name` should've minimum three characters.") String name) {
+        Product productSaved = findProductById(id);
+        productSaved.setName(name);
         productRepository.save(productSaved);
     }
 }

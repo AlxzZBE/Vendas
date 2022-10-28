@@ -1,6 +1,5 @@
 package com.alex.spring.vendas.controllers;
 
-import com.alex.spring.vendas.requests.client.ClientGetList;
 import com.alex.spring.vendas.requests.product.ProductGetList;
 import com.alex.spring.vendas.requests.product.ProductGetOne;
 import com.alex.spring.vendas.requests.product.ProductPost;
@@ -58,6 +57,12 @@ public class ProductController {
     @PatchMapping(path = "{id}", params = "price")
     public ResponseEntity<Void> updateProductPriceById(@PathVariable Integer id, @RequestParam BigDecimal price) {
         productService.updateProductPriceById(id, price);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping(path = "{id}", params = "name")
+    public ResponseEntity<Void> updateProductNameById(@PathVariable Integer id, @RequestParam String name) {
+        productService.updateProductNameById(id, name);
         return ResponseEntity.noContent().build();
     }
 }
