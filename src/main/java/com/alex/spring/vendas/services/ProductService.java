@@ -49,4 +49,10 @@ public class ProductService {
         productSaved.setAmount(amount);
         productRepository.save(productSaved);
     }
+
+    public void updateProductPriceById(Integer id, BigDecimal price) {
+        Product productSaved = findProductById(id);
+        productSaved.setPrice(price);
+        productRepository.save(productSaved);
+    }
 }
