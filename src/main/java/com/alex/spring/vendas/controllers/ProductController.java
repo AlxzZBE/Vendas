@@ -42,4 +42,9 @@ public class ProductController {
     public ResponseEntity<ProductGetOne> findProductById(@RequestParam Integer id) {
         return ResponseEntity.ok(productService.findProductById(id));
     }
+
+    @GetMapping(params = "name", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ProductGetOne> findProductByName(@RequestParam String name) {
+        return ResponseEntity.ok(productService.findProductByName(name));
+    }
 }

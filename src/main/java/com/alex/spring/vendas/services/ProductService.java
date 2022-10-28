@@ -37,4 +37,9 @@ public class ProductService {
         return new ProductGetOne(productRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Not Found Product with id `%d`.".formatted(id))));
     }
+
+    public ProductGetOne findProductByName(String name) {
+        return new ProductGetOne(productRepository.findByNameIgnoreCase(name)
+                .orElseThrow(() -> new NotFoundException("Not Found Product with name `%s`.".formatted(name))));
+    }
 }
