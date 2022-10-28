@@ -2,6 +2,7 @@ package com.alex.spring.vendas.controllers;
 
 import com.alex.spring.vendas.requests.client.ClientGetList;
 import com.alex.spring.vendas.requests.product.ProductGetList;
+import com.alex.spring.vendas.requests.product.ProductGetOne;
 import com.alex.spring.vendas.requests.product.ProductPost;
 import com.alex.spring.vendas.services.ProductService;
 import jakarta.validation.Valid;
@@ -35,5 +36,10 @@ public class ProductController {
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Page<ProductGetList>> findProducts(Pageable pageable) {
         return ResponseEntity.ok(productService.findProducts(pageable));
+    }
+
+    @GetMapping(params = "id", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ProductGetOne> findProductById(@RequestParam Integer id) {
+        return ResponseEntity.ok(productService.findProductById(id));
     }
 }
