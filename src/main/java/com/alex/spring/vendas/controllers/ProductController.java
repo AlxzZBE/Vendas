@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.math.BigDecimal;
 import java.net.URI;
 
 @RestController
@@ -40,17 +41,23 @@ public class ProductController {
 
     @GetMapping(params = "id", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ProductGetOne> findProductById(@RequestParam Integer id) {
-        return ResponseEntity.ok(productService.findProductById(id));
+        return ResponseEntity.ok(new ProductGetOne(productService.findProductById(id)));
     }
 
     @GetMapping(params = "name", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ProductGetOne> findProductByName(@RequestParam String name) {
-        return ResponseEntity.ok(productService.findProductByName(name));
+        return ResponseEntity.ok(new ProductGetOne(productService.findProductByName(name)));
     }
 
     @PatchMapping(path = "{id}", params = "amount")
     public ResponseEntity<Void> updateProductAmountById(@PathVariable Integer id, @RequestParam Long amount) {
         productService.updateProductAmountById(id, amount);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping(path = "{id}", params = "price")
+    public ResponseEntity<Void> updateProductPriceById(@PathVariable Integer id, @RequestParam BigDecimal price) {
+        productService.updateProductPriceById(id, price);
         return ResponseEntity.noContent().build();
     }
 }

@@ -4,12 +4,13 @@ import com.alex.spring.vendas.domain.Product;
 import com.alex.spring.vendas.exceptions.NotFoundException;
 import com.alex.spring.vendas.repositories.ProductRepository;
 import com.alex.spring.vendas.requests.product.ProductGetList;
-import com.alex.spring.vendas.requests.product.ProductGetOne;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.math.BigDecimal;
 
 @Service
 public class ProductService {
@@ -33,19 +34,18 @@ public class ProductService {
         return productRepository.findAll(pageable).map(ProductGetList::new);
     }
 
-    public ProductGetOne findProductById(Integer id) {
-        return new ProductGetOne(productRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Not Found Product with id `%d`.".formatted(id))));
+    public Product findProductById(Integer id) {
+        return productRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Not Found Product with id `%d`.".formatted(id)));
     }
 
-    public ProductGetOne findProductByName(String name) {
-        return new ProductGetOne(productRepository.findByNameIgnoreCase(name)
-                .orElseThrow(() -> new NotFoundException("Not Found Product with name `%s`.".formatted(name))));
+    public Product findProductByName(String name) {
+        return productRepository.findByNameIgnoreCase(name)
+                .orElseThrow(() -> new NotFoundException("Not Found Product with name `%s`.".formatted(name)));
     }
 
     public void updateProductAmountById(Integer id, Long amount) {
-        Product productSaved = productRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Not Found Product with id `%d`.".formatted(id)));
+        Product productSaved = findProductById(id);
         productSaved.setAmount(amount);
         productRepository.save(productSaved);
     }
