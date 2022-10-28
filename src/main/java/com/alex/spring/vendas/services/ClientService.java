@@ -12,8 +12,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class ClientService {
 
@@ -39,8 +37,8 @@ public class ClientService {
                 .orElseThrow(() -> new NotFoundException("Not Found Client with id `%d`.".formatted(id))));
     }
 
-    public List<ClientGetList> findClientByName(String name) {
-        return clientRepository.findByNameIgnoreCase(name).stream().map(ClientGetList::new).toList();
+    public Page<ClientGetList> findClientByName(String name, Pageable pageable) {
+        return clientRepository.findByNameIgnoreCase(name, pageable).map(ClientGetList::new);
     }
 
     public Page<ClientGetList> findClientByGender(String gender, Pageable pageable) {
