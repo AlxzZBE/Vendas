@@ -16,7 +16,7 @@ public class ClientGetList {
         this.name = client.getName();
         this.gender = client.getGender().getName();
         this.level = client.getLevel();
-        this.created_at = client.getCreated_at();
+        this.created_at = client.getCreatedAt();
     }
 
     public String getName() {

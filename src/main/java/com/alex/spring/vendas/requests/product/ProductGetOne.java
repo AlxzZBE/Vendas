@@ -23,7 +23,7 @@ public class ProductGetOne {
         this.description = product.getDescription();
         this.amount = product.getAmount();
         this.imageName = product.getImageName();
-        this.created_at = product.getCreated_at();
+        this.created_at = product.getCreatedAt();
     }
 
     public String getName() {

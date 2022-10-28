@@ -28,7 +28,7 @@ public class ClientPost {
         newClient.setName(this.name);
         newClient.setGender(Gender.newGender(gender));
         newClient.setAddress(this.address);
-        newClient.setCreated_at(LocalDate.now());
+        newClient.setCreatedAt(LocalDate.now());
         return newClient;
     }
 

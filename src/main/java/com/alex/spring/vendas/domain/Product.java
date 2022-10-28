@@ -20,8 +20,8 @@ public class Product {
     @Column(nullable = false)
     private Long amount;
     private String imageName;
-    @Column(nullable = false)
-    private LocalDate created_at;
+    @Column(nullable = false, name = "created_at")
+    private LocalDate createdAt;
 
     public Integer getId() {
         return id;
@@ -75,11 +75,11 @@ public class Product {
         this.imageName = imageName;
     }
 
-    public LocalDate getCreated_at() {
-        return created_at;
+    public LocalDate getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreated_at(LocalDate created_at) {
-        this.created_at = created_at;
+    public void setCreatedAt(LocalDate createdAt) {
+        this.createdAt = createdAt;
     }
 }

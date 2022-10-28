@@ -20,7 +20,7 @@ public class ClientGetOne {
         this.gender = client.getGender().getName();
         this.addressGetList = client.getAddress().stream().map(AddressGetList::new).toList();
         this.level = client.getLevel();
-        this.created_at = client.getCreated_at();
+        this.created_at = client.getCreatedAt();
     }
 
     public String getName() {
