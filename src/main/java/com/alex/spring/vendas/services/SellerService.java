@@ -29,4 +29,8 @@ public class SellerService {
         return new SellerGet(sellerRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Not Found Seller with id `%d`.".formatted(id))));
     }
+
+    public Page<SellerGet> findSellerByName(String name, Pageable pageable) {
+        return sellerRepository.findByNameIgnoreCase(name, pageable).map(SellerGet::new);
+    }
 }

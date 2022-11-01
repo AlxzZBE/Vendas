@@ -39,4 +39,9 @@ public class SellerController {
     public ResponseEntity<SellerGet> findSellerById(@RequestParam Integer id) {
         return ResponseEntity.ok(sellerService.findSellerById(id));
     }
+
+    @GetMapping(params = "name", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Page<SellerGet>> findSellerByName(@RequestParam String name, Pageable pageable) {
+        return ResponseEntity.ok(sellerService.findSellerByName(name, pageable));
+    }
 }
