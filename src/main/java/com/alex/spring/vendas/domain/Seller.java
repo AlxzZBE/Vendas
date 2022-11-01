@@ -1,30 +1,29 @@
 package com.alex.spring.vendas.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
+@Entity
 public class Seller {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private UUID id;
+    private Integer id;
     @Column(nullable = false)
     private String name;
-    @Column(nullable = false, unique = true, length = 8)
+    @Column(nullable = false, unique = true, length = 6)
     private String code;
     @Column(nullable = false)
     private Integer totalSales = 0;
     @Column(nullable = false)
     private Status status = Status.BEGINNER;
     @Column(nullable = false, name = "registered_at")
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate registeredAt;
 
-    public UUID getId() {
+    public Integer getId() {
         return id;
     }
 
