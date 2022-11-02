@@ -32,16 +32,16 @@ public class SellerController {
 
     @GetMapping
     public ResponseEntity<Page<SellerGet>> findSellers(Pageable pageable) {
-        return ResponseEntity.ok(sellerService.findSellers(pageable));
+        return ResponseEntity.ok(sellerService.findSellers(pageable).map(SellerGet::new));
     }
 
     @GetMapping(params = "id", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<SellerGet> findSellerById(@RequestParam Integer id) {
-        return ResponseEntity.ok(sellerService.findSellerById(id));
+        return ResponseEntity.ok(new SellerGet(sellerService.findSellerById(id)));
     }
 
     @GetMapping(params = "name", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Page<SellerGet>> findSellerByName(@RequestParam String name, Pageable pageable) {
-        return ResponseEntity.ok(sellerService.findSellerByName(name, pageable));
+        return ResponseEntity.ok(sellerService.findSellerByName(name, pageable).map(SellerGet::new));
     }
 }

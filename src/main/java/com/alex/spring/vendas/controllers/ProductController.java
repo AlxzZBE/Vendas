@@ -35,7 +35,7 @@ public class ProductController {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Page<ProductGetList>> findProducts(Pageable pageable) {
-        return ResponseEntity.ok(productService.findProducts(pageable));
+        return ResponseEntity.ok(productService.findProducts(pageable).map(ProductGetList::new));
     }
 
     @GetMapping(params = "id", produces = MediaType.APPLICATION_JSON_VALUE)

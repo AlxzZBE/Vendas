@@ -3,7 +3,6 @@ package com.alex.spring.vendas.services;
 import com.alex.spring.vendas.domain.Seller;
 import com.alex.spring.vendas.exceptions.NotFoundException;
 import com.alex.spring.vendas.repositories.SellerRepository;
-import com.alex.spring.vendas.requests.seller.SellerGet;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -21,16 +20,21 @@ public class SellerService {
         return sellerRepository.save(newSeller).getId();
     }
 
-    public Page<SellerGet> findSellers(Pageable pageable) {
-        return sellerRepository.findAll(pageable).map(SellerGet::new);
+    public Page<Seller> findSellers(Pageable pageable) {
+        return sellerRepository.findAll(pageable);
     }
 
-    public SellerGet findSellerById(Integer id) {
-        return new SellerGet(sellerRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Not Found Seller with id `%d`.".formatted(id))));
+    public Seller findSellerById(Integer id) {
+        return sellerRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Not Found Seller with id `%d`.".formatted(id)));
     }
 
-    public Page<SellerGet> findSellerByName(String name, Pageable pageable) {
-        return sellerRepository.findByNameIgnoreCase(name, pageable).map(SellerGet::new);
+    public Page<Seller> findSellerByName(String name, Pageable pageable) {
+        return sellerRepository.findByNameIgnoreCase(name, pageable);
+    }
+
+    public Seller findSellerByCode(String code) {
+        return sellerRepository.findByCodeIgnoreCase(code)
+                .orElseThrow(() -> new NotFoundException("Not Found Seller With Code `%s`.".formatted(code)));
     }
 }

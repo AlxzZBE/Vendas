@@ -4,10 +4,7 @@ import com.alex.spring.vendas.domain.Product;
 import com.alex.spring.vendas.exceptions.ArgumentNotValidException;
 import com.alex.spring.vendas.exceptions.NotFoundException;
 import com.alex.spring.vendas.repositories.ProductRepository;
-import com.alex.spring.vendas.requests.product.ProductGetList;
 import jakarta.transaction.Transactional;
-import jakarta.validation.constraints.NotBlank;
-import org.hibernate.validator.constraints.Length;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -33,8 +30,8 @@ public class ProductService {
         return savedProduct.getId();
     }
 
-    public Page<ProductGetList> findProducts(Pageable pageable) {
-        return productRepository.findAll(pageable).map(ProductGetList::new);
+    public Page<Product> findProducts(Pageable pageable) {
+        return productRepository.findAll(pageable);
     }
 
     public Product findProductById(Integer id) {

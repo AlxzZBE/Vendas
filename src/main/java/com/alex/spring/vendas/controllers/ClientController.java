@@ -33,26 +33,26 @@ public class ClientController {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Page<ClientGetList>> findClients(Pageable pageable) {
-        return ResponseEntity.ok(clientService.findClients(pageable));
+        return ResponseEntity.ok(clientService.findClients(pageable).map(ClientGetList::new));
     }
 
     @GetMapping(params = "id", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ClientGetOne> findClientById(@RequestParam Integer id) {
-        return ResponseEntity.ok(clientService.findClientById(id));
+        return ResponseEntity.ok(new ClientGetOne(clientService.findClientById(id)));
     }
 
     @GetMapping(params = "name", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Page<ClientGetList>> findClientByName(@RequestParam String name, Pageable pageable) {
-        return ResponseEntity.ok(clientService.findClientByName(name, pageable));
+        return ResponseEntity.ok(clientService.findClientByName(name, pageable).map(ClientGetList::new));
     }
 
     @GetMapping(params = "gender", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Page<ClientGetList>> findClientByGender(@RequestParam String gender, Pageable pageable) {
-        return ResponseEntity.ok(clientService.findClientByGender(gender, pageable));
+        return ResponseEntity.ok(clientService.findClientByGender(gender, pageable).map(ClientGetList::new));
     }
 
     @GetMapping(params = "level", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Page<ClientGetList>> findClientByLevel(@RequestParam String level, Pageable pageable) {
-        return ResponseEntity.ok(clientService.findClientByLevel(level, pageable));
+        return ResponseEntity.ok(clientService.findClientByLevel(level, pageable).map(ClientGetList::new));
     }
 }
