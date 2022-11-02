@@ -18,7 +18,7 @@ public class Sale {
     @OneToOne
     private Client client;
     @Column(nullable = false)
-    private BigDecimal total = BigDecimal.ZERO;
+    private BigDecimal totalPrice = BigDecimal.ZERO;
     @Column(nullable = false)
     private BigDecimal discountTotal = BigDecimal.ZERO;
     @Column(nullable = false)
@@ -51,12 +51,12 @@ public class Sale {
         this.client = client;
     }
 
-    public BigDecimal getTotal() {
-        return total;
+    public BigDecimal getTotalPrice() {
+        return totalPrice;
     }
 
-    public void setTotal(BigDecimal total) {
-        this.total = total;
+    public void setTotalPrice(BigDecimal totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
     public BigDecimal getDiscountTotal() {

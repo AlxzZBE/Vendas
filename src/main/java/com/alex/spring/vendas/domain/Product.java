@@ -15,7 +15,8 @@ public class Product {
     private String name;
     @Column(nullable = false)
     private BigDecimal price;
-    private Category category;
+    @Column(nullable = false)
+    private Category category = Category.DEFAULT;
     private String description;
     @Column(nullable = false)
     private Long amount;

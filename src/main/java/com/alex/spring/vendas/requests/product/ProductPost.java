@@ -16,7 +16,7 @@ public class ProductPost {
     private String name;
     @NotNull(message = "The field `price` cannot be empty.")
     private BigDecimal price;
-    private Category category;
+    private Category category = Category.DEFAULT;
     private String description;
     private Long amount;
 

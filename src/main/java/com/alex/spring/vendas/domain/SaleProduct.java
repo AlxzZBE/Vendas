@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
+@IdClass(SaleProductPK.class)
 public class SaleProduct {
 
     @Id
@@ -21,7 +22,7 @@ public class SaleProduct {
     @Column(nullable = false)
     private BigDecimal totalPrice;
     @Column(nullable = false)
-    private BigDecimal discount;
+    private BigDecimal discountPrice;
 
     public Product getProduct() {
         return product;
@@ -63,11 +64,11 @@ public class SaleProduct {
         this.totalPrice = totalPrice;
     }
 
-    public BigDecimal getDiscount() {
-        return discount;
+    public BigDecimal getDiscountPrice() {
+        return discountPrice;
     }
 
-    public void setDiscount(BigDecimal discount) {
-        this.discount = discount;
+    public void setDiscountPrice(BigDecimal discountPrice) {
+        this.discountPrice = discountPrice;
     }
 }

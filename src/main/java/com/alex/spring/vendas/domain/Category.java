@@ -1,7 +1,8 @@
 package com.alex.spring.vendas.domain;
 
 public enum Category {
-    GROCERY("Mercado"), SHOES("Tênis"), CLOTHES("Roupas"), ELECTRONICS("Eletrônicos"), PETS("Pets");
+    DEFAULT("N/A"), GROCERY("Mercado"), SHOES("Tênis"), CLOTHES("Roupas"),
+    ELECTRONICS("Eletrônicos"), PETS("Pets");
 
     private String name;
 

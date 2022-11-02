@@ -1,6 +1,5 @@
 package com.alex.spring.vendas.requests.product;
 
-import com.alex.spring.vendas.domain.Category;
 import com.alex.spring.vendas.domain.Product;
 
 import java.math.BigDecimal;
@@ -10,20 +9,20 @@ public class ProductGetOne {
 
     private String name;
     private BigDecimal price;
-    private Category category;
+    private String category;
     private String description;
     private Long amount;
     private String imageName;
-    private LocalDate created_at;
+    private LocalDate createdAt;
 
     public ProductGetOne(Product product) {
         this.name = product.getName();
         this.price = product.getPrice();
-        this.category = product.getCategory();
+        this.category = product.getCategory().getName();
         this.description = product.getDescription();
         this.amount = product.getAmount();
         this.imageName = product.getImageName();
-        this.created_at = product.getCreatedAt();
+        this.createdAt = product.getCreatedAt();
     }
 
     public String getName() {
@@ -34,7 +33,7 @@ public class ProductGetOne {
         return price;
     }
 
-    public Category getCategory() {
+    public String getCategory() {
         return category;
     }
 
@@ -50,7 +49,7 @@ public class ProductGetOne {
         return imageName;
     }
 
-    public LocalDate getCreated_at() {
-        return created_at;
+    public LocalDate getCreatedAt() {
+        return createdAt;
     }
 }
