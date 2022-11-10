@@ -1,6 +1,8 @@
 package com.alex.spring.vendas.controllers;
 
+import com.alex.spring.vendas.domain.SaleProduct;
 import com.alex.spring.vendas.requests.saleproduct.SaleProductGetList;
+import com.alex.spring.vendas.requests.saleproduct.SaleProductGetOne;
 import com.alex.spring.vendas.requests.saleproduct.SaleProductPost;
 import com.alex.spring.vendas.services.SaleProductService;
 import jakarta.validation.Valid;
@@ -30,8 +32,14 @@ public class SaleProductController {
         return ResponseEntity.created(uri).build();
     }
 
-    @GetMapping()
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Page<SaleProductGetList>> findSaleProducts(Pageable pageable) {
         return ResponseEntity.ok(saleProductService.findSaleProducts(pageable).map(SaleProductGetList::new));
+    }
+
+    @GetMapping(params = {"saleId", "productId"})
+    public ResponseEntity<SaleProductGetOne> findSaleProductBySaleIdAndProductId(@RequestParam Integer saleId, @RequestParam Integer productId) {
+        SaleProduct saleProductSaved = saleProductService.findSaleProductBySaleIdAndProductId(saleId, productId);
+        return ResponseEntity.ok(new SaleProductGetOne(saleProductSaved));
     }
 }

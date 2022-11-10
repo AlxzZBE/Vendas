@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Entity
 public class Product {
@@ -24,6 +25,19 @@ public class Product {
     private String imageName;
     @Column(nullable = false, name = "created_at")
     private LocalDate createdAt;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return Objects.equals(id, product.id) && Objects.equals(name, product.name) && category == product.category && Objects.equals(imageName, product.imageName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, category, imageName);
+    }
 
     public Integer getId() {
         return id;

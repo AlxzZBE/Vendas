@@ -3,6 +3,7 @@ package com.alex.spring.vendas.services;
 import com.alex.spring.vendas.domain.Product;
 import com.alex.spring.vendas.domain.Sale;
 import com.alex.spring.vendas.domain.SaleProduct;
+import com.alex.spring.vendas.exceptions.NotFoundException;
 import com.alex.spring.vendas.repositories.SaleProductRepository;
 import com.alex.spring.vendas.requests.saleproduct.SaleProductPost;
 import jakarta.transaction.Transactional;
@@ -45,5 +46,12 @@ public class SaleProductService {
 
     public Page<SaleProduct> findSaleProducts(Pageable pageable) {
         return saleProductRepository.findAll(pageable);
+    }
+
+
+    public SaleProduct findSaleProductBySaleIdAndProductId(Integer saleId, Integer productId) {
+        return saleProductRepository.findBySaleIdAndProductId(saleId, productId)
+                .orElseThrow(() -> new NotFoundException("" +
+                        "Not Found SaleProduct with saleId `%d` and productId `%d`".formatted(saleId, productId)));
     }
 }

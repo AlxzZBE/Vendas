@@ -1,6 +1,7 @@
 package com.alex.spring.vendas.handler;
 
 import com.alex.spring.vendas.exceptions.ArgumentNotValidException;
+import com.alex.spring.vendas.exceptions.BusinessLogicException;
 import com.alex.spring.vendas.exceptions.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,5 +30,12 @@ public class RestExceptionHandler {
     public ResponseEntity<ExceptionDetails> handlerMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
         return new ResponseEntity<>(new ExceptionDetails(
                 ex, "Method Argument Not Valid Exception, check the details and errors."), ex.getStatusCode());
+    }
+
+    @ExceptionHandler(BusinessLogicException.class)
+    public ResponseEntity<ExceptionDetails> handlerBusinessLogicException(BusinessLogicException ex) {
+        return new ResponseEntity<>(new ExceptionDetails(
+                ex, "Business Logic Exception, check the details and developer message.",
+                "Probably has a Business Logic that don't accept your request."), HttpStatus.CONFLICT);
     }
 }
