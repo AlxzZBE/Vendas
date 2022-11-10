@@ -42,4 +42,10 @@ public class SaleProductController {
         SaleProduct saleProductSaved = saleProductService.findSaleProductBySaleIdAndProductId(saleId, productId);
         return ResponseEntity.ok(new SaleProductGetOne(saleProductSaved));
     }
+
+    @DeleteMapping(params = {"saleId", "productId"})
+    public ResponseEntity<Void> deleteSaleProductBySaleIdAndProductId(@RequestParam Integer saleId, @RequestParam Integer productId) {
+        saleProductService.deleteSaleProductBySaleIdAndProductId(saleId, productId);
+        return ResponseEntity.noContent().build();
+    }
 }

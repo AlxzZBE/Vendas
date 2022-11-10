@@ -54,4 +54,8 @@ public class SaleProductService {
                 .orElseThrow(() -> new NotFoundException("" +
                         "Not Found SaleProduct with saleId `%d` and productId `%d`".formatted(saleId, productId)));
     }
+
+    public void deleteSaleProductBySaleIdAndProductId(Integer saleId, Integer productId) {
+        saleProductRepository.delete(findSaleProductBySaleIdAndProductId(saleId, productId));
+    }
 }
