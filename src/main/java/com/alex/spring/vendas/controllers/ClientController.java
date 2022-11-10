@@ -14,6 +14,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 
+@CrossOrigin(origins = "http://localhost:3000/")
 @RestController
 @RequestMapping("api/v1/clients")
 public class ClientController {

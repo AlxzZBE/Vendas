@@ -12,6 +12,7 @@ public class Sale {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false, updatable = false)
     private Integer id;
     @OneToOne
     private Seller seller;

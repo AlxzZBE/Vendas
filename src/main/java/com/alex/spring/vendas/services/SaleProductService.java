@@ -6,6 +6,8 @@ import com.alex.spring.vendas.domain.SaleProduct;
 import com.alex.spring.vendas.repositories.SaleProductRepository;
 import com.alex.spring.vendas.requests.saleproduct.SaleProductPost;
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -39,5 +41,9 @@ public class SaleProductService {
 
         saleSaved.setTotalPrice(saleSaved.getTotalPrice().add(newSaleProduct.getTotalPrice()));
         return saleProductRepository.save(newSaleProduct).getSale().getId();
+    }
+
+    public Page<SaleProduct> findSaleProducts(Pageable pageable) {
+        return saleProductRepository.findAll(pageable);
     }
 }

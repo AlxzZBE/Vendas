@@ -10,6 +10,7 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false, updatable = false)
     private Integer id;
     @Column(nullable = false, unique = true)
     private String name;
