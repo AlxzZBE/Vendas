@@ -3,6 +3,8 @@ package com.alex.spring.vendas.services;
 import com.alex.spring.vendas.domain.Product;
 import com.alex.spring.vendas.domain.Sale;
 import com.alex.spring.vendas.domain.SaleProduct;
+import com.alex.spring.vendas.domain.SaleStatus;
+import com.alex.spring.vendas.exceptions.BusinessLogicException;
 import com.alex.spring.vendas.exceptions.NotFoundException;
 import com.alex.spring.vendas.repositories.SaleProductRepository;
 import com.alex.spring.vendas.requests.saleproduct.SaleProductPost;
@@ -56,6 +58,13 @@ public class SaleProductService {
     }
 
     public void deleteSaleProductBySaleIdAndProductId(Integer saleId, Integer productId) {
-        saleProductRepository.delete(findSaleProductBySaleIdAndProductId(saleId, productId));
+        SaleProduct saleProductSaved = findSaleProductBySaleIdAndProductId(saleId, productId);
+        SaleStatus saleProductSavedSaleStatus = saleProductSaved.getSale().getSaleStatus();
+
+        if (saleProductSavedSaleStatus.equals(SaleStatus.DONE) || saleProductSavedSaleStatus.equals(SaleStatus.CANCELLED)) {
+            throw new BusinessLogicException(
+                    "Cannot remove saleProduct that has a sale with saleStatus equals `Concluída` or `Cancelada`.");
+        }
+        saleProductRepository.delete(saleProductSaved);
     }
 }
