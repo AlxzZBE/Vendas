@@ -40,4 +40,10 @@ public class SaleController {
     public ResponseEntity<SaleGetOne> findSaleById(@RequestParam Integer id) {
         return ResponseEntity.ok(new SaleGetOne(saleService.findSaleById(id)));
     }
+
+    @PatchMapping(params = {"id", "saleStatus"})
+    public ResponseEntity<Void> updateSaleStatus(@RequestParam Integer id, @RequestParam String saleStatus) {
+        saleService.updateSaleStatus(id, saleStatus);
+        return ResponseEntity.noContent().build();
+    }
 }

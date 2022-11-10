@@ -2,6 +2,7 @@ package com.alex.spring.vendas.services;
 
 import com.alex.spring.vendas.domain.Client;
 import com.alex.spring.vendas.domain.Sale;
+import com.alex.spring.vendas.domain.SaleStatus;
 import com.alex.spring.vendas.domain.Seller;
 import com.alex.spring.vendas.exceptions.NotFoundException;
 import com.alex.spring.vendas.repositories.SaleRepository;
@@ -43,5 +44,17 @@ public class SaleService {
     public Sale findSaleById(Integer id) {
         return saleRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Not Found Sale With id `%d`.".formatted(id)));
+    }
+
+    public void updateSaleStatus(Integer id, String saleStatus) {
+        Sale saleSaved = findSaleById(id);
+        SaleStatus newSaleStatus = SaleStatus.newSaleStatus(saleStatus);
+
+        if (newSaleStatus == SaleStatus.DONE) {
+            Seller saleSavedSeller = saleSaved.getSeller();
+            saleSavedSeller.setTotalSales(saleSavedSeller.getTotalSales() + 1);
+        }
+        saleSaved.setSaleStatus(newSaleStatus);
+        saleRepository.save(saleSaved);
     }
 }
