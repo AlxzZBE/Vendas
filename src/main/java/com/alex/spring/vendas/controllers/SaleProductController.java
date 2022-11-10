@@ -48,4 +48,12 @@ public class SaleProductController {
         saleProductService.deleteSaleProductBySaleIdAndProductId(saleId, productId);
         return ResponseEntity.noContent().build();
     }
+
+    @PatchMapping(params = {"saleId", "productId", "amount"})
+    public ResponseEntity<Void> updateSaleProductAmountById(@RequestParam Integer saleId,
+                                                            @RequestParam Integer productId,
+                                                            @RequestParam Integer amount) {
+        saleProductService.updateSaleProductAmountById(saleId, productId, amount);
+        return ResponseEntity.noContent().build();
+    }
 }

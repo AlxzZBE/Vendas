@@ -59,12 +59,28 @@ public class SaleProductService {
 
     public void deleteSaleProductBySaleIdAndProductId(Integer saleId, Integer productId) {
         SaleProduct saleProductSaved = findSaleProductBySaleIdAndProductId(saleId, productId);
-        SaleStatus saleProductSavedSaleStatus = saleProductSaved.getSale().getSaleStatus();
+        checkSaleStatusAndThrowException(saleProductSaved);
+        saleProductRepository.delete(saleProductSaved);
+    }
 
+    public void updateSaleProductAmountById(Integer saleId, Integer productId, Integer amount) {
+        if (amount <= 0) {
+            deleteSaleProductBySaleIdAndProductId(saleId, productId);
+            return;
+        }
+
+        SaleProduct saleProductSaved = findSaleProductBySaleIdAndProductId(saleId, productId);
+        checkSaleStatusAndThrowException(saleProductSaved);
+
+        saleProductSaved.setAmount(amount);
+        saleProductRepository.save(saleProductSaved);
+    }
+
+    private void checkSaleStatusAndThrowException(SaleProduct saleProduct) {
+        SaleStatus saleProductSavedSaleStatus = saleProduct.getSale().getSaleStatus();
         if (saleProductSavedSaleStatus.equals(SaleStatus.DONE) || saleProductSavedSaleStatus.equals(SaleStatus.CANCELLED)) {
             throw new BusinessLogicException(
                     "Cannot remove saleProduct that has a sale with saleStatus equals `Concluída` or `Cancelada`.");
         }
-        saleProductRepository.delete(saleProductSaved);
     }
 }

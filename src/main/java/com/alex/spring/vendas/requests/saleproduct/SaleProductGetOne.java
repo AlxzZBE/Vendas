@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 public class SaleProductGetOne {
 
     private Integer saleId;
+    private Integer productId;
     private String productName;
     private String productCategory;
     private Integer amount;
@@ -15,18 +16,23 @@ public class SaleProductGetOne {
     private BigDecimal totalPrice;
 
     public SaleProductGetOne(SaleProduct saleProduct) {
+        this.saleId = saleProduct.getSale().getId();
+        this.productId = saleProduct.getProduct().getId();
         this.productName = saleProduct.getProduct().getName();
         this.productCategory = saleProduct.getProduct().getCategory() != null ?
                 saleProduct.getProduct().getCategory().getName() : "N/A";
-        this.saleId = saleProduct.getSale().getId();
         this.amount = saleProduct.getAmount();
         this.unitPrice = saleProduct.getUnitPrice();
-        this.totalPrice = saleProduct.getTotalPrice();
         this.discountPrice = saleProduct.getDiscountPrice();
+        this.totalPrice = saleProduct.getTotalPrice();
     }
 
     public Integer getSaleId() {
         return saleId;
+    }
+
+    public Integer getProductId() {
+        return productId;
     }
 
     public String getProductName() {
