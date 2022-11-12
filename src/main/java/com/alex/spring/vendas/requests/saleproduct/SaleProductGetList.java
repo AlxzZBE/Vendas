@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 
 public class SaleProductGetList {
 
-    private Integer saleId;
+    private Long saleId;
     private String productName;
     private Integer amount;
     private BigDecimal unitPrice;
@@ -18,7 +18,7 @@ public class SaleProductGetList {
         this.unitPrice = saleProduct.getUnitPrice();
     }
 
-    public Integer getSaleId() {
+    public Long getSaleId() {
         return saleId;
     }
 

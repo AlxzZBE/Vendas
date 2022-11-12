@@ -39,7 +39,7 @@ public class ProductService {
         return productRepository.findAll(pageable);
     }
 
-    public Product findProductById(Integer id) {
+    public Product findProductById(Long id) {
         return productRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Not Found Product with id `%d`.".formatted(id)));
     }
@@ -49,19 +49,19 @@ public class ProductService {
                 .orElseThrow(() -> new NotFoundException("Not Found Product with name `%s`.".formatted(name)));
     }
 
-    public void updateProductAmountById(Integer id, Long amount) {
+    public void updateProductAmountById(Long id, Long amount) {
         Product productSaved = findProductById(id);
         productSaved.setAmount(amount);
         productRepository.save(productSaved);
     }
 
-    public void updateProductPriceById(Integer id, BigDecimal price) {
+    public void updateProductPriceById(Long id, BigDecimal price) {
         Product productSaved = findProductById(id);
         productSaved.setPrice(price);
         productRepository.save(productSaved);
     }
 
-    public void updateProductNameById(Integer id, String name) {
+    public void updateProductNameById(Long id, String name) {
         if (name.length() < 3) {
             throw new ArgumentNotValidException("The field `name` should've minimum three characters.");
         }
@@ -70,7 +70,7 @@ public class ProductService {
         productRepository.save(productSaved);
     }
 
-    public void deleteProductById(Integer id) {
+    public void deleteProductById(Long id) {
         findProductById(id);
         productRepository.deleteById(id);
     }

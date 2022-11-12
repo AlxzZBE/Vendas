@@ -8,17 +8,17 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Embeddable
 public class Sale {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id_seq_gen")
-    @SequenceGenerator(name = "id_seq_gen", sequenceName = "id_seq_gen", initialValue = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sale_seq_gen")
+    @SequenceGenerator(name = "sale_seq_gen", sequenceName = "sale_seq_gen", initialValue = 1)
     @Column(nullable = false, updatable = false)
     private Long id;
-    @OneToOne
+    @ManyToOne
     private Seller seller;
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "client_id")
     private Client client;
     @Column(nullable = false)
     private BigDecimal totalPrice = BigDecimal.ZERO;

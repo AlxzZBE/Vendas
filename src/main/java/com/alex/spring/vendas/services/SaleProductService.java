@@ -30,17 +30,41 @@ public class SaleProductService {
 
     @Transactional
     public Long saveNewSaleProduct(SaleProductPost saleProductPost) {
+        if (saleProductRepository.existsBySaleIdAndProductId(saleProductPost.getSaleId(), saleProductPost.getProductId())) {
+            SaleProduct saleProductSaved = saleProductRepository.findBySaleIdAndProductId(saleProductPost.getSaleId(), saleProductPost.getProductId()).get();
+
+            if (saleProductPost.getAmount() <= 0) {
+                deleteSaleProductBySaleIdAndProductId(saleProductPost.getSaleId(), saleProductPost.getProductId());
+                return 0L;
+            }
+
+            BigDecimal oldSaleTotalPrice = saleProductSaved.getSale().getTotalPrice();
+            BigDecimal oldSaleProductTotalPrice = saleProductSaved.getTotalPrice();
+            saleProductSaved.getSale().setTotalPrice(oldSaleTotalPrice.subtract(oldSaleProductTotalPrice));
+
+            saleProductSaved.setAmount(saleProductPost.getAmount());
+
+            BigDecimal newSaleProductTotalPrice = saleProductSaved.getUnitPrice().multiply(BigDecimal.valueOf(saleProductSaved.getAmount()));
+            saleProductSaved.setTotalPrice(newSaleProductTotalPrice);
+
+            BigDecimal newSaleTotalPrice = saleProductSaved.getSale().getTotalPrice();
+            saleProductSaved.getSale().setTotalPrice(newSaleTotalPrice.add(newSaleProductTotalPrice));
+
+            return saleProductRepository.save(saleProductSaved).getSale().getId();
+        }
+
         Product productSaved = productService.findProductById(saleProductPost.getProductId());
         Sale saleSaved = saleService.findSaleById(saleProductPost.getSaleId());
-        BigDecimal totalPrice = productSaved.getPrice().multiply(BigDecimal.valueOf(saleProductPost.getAmount()));
 
         SaleProduct newSaleProduct = new SaleProduct();
         newSaleProduct.setProduct(productSaved);
         newSaleProduct.setSale(saleSaved);
-        newSaleProduct.setAmount(saleProductPost.getAmount());
+        newSaleProduct.setAmount(saleProductPost.getAmount() >= 1 ? saleProductPost.getAmount() : 1);
         newSaleProduct.setUnitPrice(productSaved.getPrice());
-        newSaleProduct.setTotalPrice(totalPrice.subtract(saleProductPost.getDiscount()));
         newSaleProduct.setDiscountPrice(saleProductPost.getDiscount());
+
+        BigDecimal newSaleProductTotalPrice = productSaved.getPrice().multiply(BigDecimal.valueOf(newSaleProduct.getAmount()));
+        newSaleProduct.setTotalPrice(newSaleProductTotalPrice);
 
         saleSaved.setTotalPrice(saleSaved.getTotalPrice().add(newSaleProduct.getTotalPrice()));
         return saleProductRepository.save(newSaleProduct).getSale().getId();
@@ -51,13 +75,13 @@ public class SaleProductService {
     }
 
 
-    public SaleProduct findSaleProductBySaleIdAndProductId(Integer saleId, Integer productId) {
+    public SaleProduct findSaleProductBySaleIdAndProductId(Long saleId, Long productId) {
         return saleProductRepository.findBySaleIdAndProductId(saleId, productId)
                 .orElseThrow(() -> new NotFoundException("" +
                         "Not Found SaleProduct with saleId `%d` and productId `%d`".formatted(saleId, productId)));
     }
 
-    public void deleteSaleProductBySaleIdAndProductId(Integer saleId, Integer productId) {
+    public void deleteSaleProductBySaleIdAndProductId(Long saleId, Long productId) {
         SaleProduct saleProductSaved = findSaleProductBySaleIdAndProductId(saleId, productId);
         checkSaleStatusAndThrowException(saleProductSaved);
 
@@ -66,7 +90,7 @@ public class SaleProductService {
         saleProductRepository.delete(saleProductSaved);
     }
 
-    public void updateSaleProductAmountById(Integer saleId, Integer productId, Integer amount) {
+    public void updateSaleProductAmountById(Long saleId, Long productId, Integer amount) {
         if (amount <= 0) {
             deleteSaleProductBySaleIdAndProductId(saleId, productId);
             return;
@@ -89,7 +113,7 @@ public class SaleProductService {
         saleProductRepository.save(saleProductSaved);
     }
 
-    public void updateSaleProductUnitPriceById(Integer saleId, Integer productId, BigDecimal unitPrice) {
+    public void updateSaleProductUnitPriceById(Long saleId, Long productId, BigDecimal unitPrice) {
         SaleProduct saleProductSaved = findSaleProductBySaleIdAndProductId(saleId, productId);
         checkSaleStatusAndThrowException(saleProductSaved);
 
@@ -103,7 +127,7 @@ public class SaleProductService {
         BigDecimal newSaleTotalPrice = saleProductSaved.getSale().getTotalPrice();
         saleProductSaved.setTotalPrice(newSaleTotalPrice);
         saleProductSaved.getSale().setTotalPrice(newSaleTotalPrice.add(newProductTotalPrice));
-        
+
         saleProductRepository.save(saleProductSaved);
     }
 

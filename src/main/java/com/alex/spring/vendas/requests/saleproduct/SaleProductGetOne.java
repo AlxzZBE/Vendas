@@ -6,8 +6,8 @@ import java.math.BigDecimal;
 
 public class SaleProductGetOne {
 
-    private Integer saleId;
-    private Integer productId;
+    private Long saleId;
+    private Long productId;
     private String productName;
     private String productCategory;
     private Integer amount;
@@ -27,11 +27,11 @@ public class SaleProductGetOne {
         this.totalPrice = saleProduct.getTotalPrice();
     }
 
-    public Integer getSaleId() {
+    public Long getSaleId() {
         return saleId;
     }
 
-    public Integer getProductId() {
+    public Long getProductId() {
         return productId;
     }
 

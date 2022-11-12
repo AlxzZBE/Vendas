@@ -25,7 +25,7 @@ public class SellerController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> saveNewSeller(@RequestBody @Valid SellerPost form) {
-        Integer sellerSavedId = sellerService.saveNewSeller(form.newSeller());
+        Long sellerSavedId = sellerService.saveNewSeller(form.newSeller());
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().queryParam("id", sellerSavedId).build().toUri();
         return ResponseEntity.created(uri).build();
     }
@@ -36,7 +36,7 @@ public class SellerController {
     }
 
     @GetMapping(params = "id", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<SellerGet> findSellerById(@RequestParam Integer id) {
+    public ResponseEntity<SellerGet> findSellerById(@RequestParam Long id) {
         return ResponseEntity.ok(new SellerGet(sellerService.findSellerById(id)));
     }
 

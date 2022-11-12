@@ -7,13 +7,13 @@ public class SalePost {
     @NotNull(message = "The field `sellerCode` cannot be null.")
     private String sellerCode;
     @NotNull(message = "The field `clientId` cannot be null.")
-    private Integer clientId;
+    private Long clientId;
 
     public String getSellerCode() {
         return sellerCode;
     }
 
-    public Integer getClientId() {
+    public Long getClientId() {
         return clientId;
     }
 }

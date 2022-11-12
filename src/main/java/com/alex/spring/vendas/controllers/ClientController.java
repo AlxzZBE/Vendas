@@ -27,7 +27,7 @@ public class ClientController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> saveNewClient(@RequestBody @Valid ClientPost form) {
-        Integer clientSavedId = clientService.saveClient(form.newClient());
+        Long clientSavedId = clientService.saveClient(form.newClient());
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().queryParam("id", clientSavedId).build().toUri();
         return ResponseEntity.created(uri).build();
     }
@@ -38,7 +38,7 @@ public class ClientController {
     }
 
     @GetMapping(params = "id", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ClientGetOne> findClientById(@RequestParam Integer id) {
+    public ResponseEntity<ClientGetOne> findClientById(@RequestParam Long id) {
         return ResponseEntity.ok(new ClientGetOne(clientService.findClientById(id)));
     }
 

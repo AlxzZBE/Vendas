@@ -26,7 +26,7 @@ public class SaleController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> saveNewSale(@RequestBody @Valid SalePost form) {
-        Integer saleSavedId = saleService.saveNewSale(form);
+        Long saleSavedId = saleService.saveNewSale(form);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().queryParam("id", saleSavedId).build().toUri();
         return ResponseEntity.created(uri).build();
     }
@@ -37,12 +37,12 @@ public class SaleController {
     }
 
     @GetMapping(params = "id", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<SaleGetOne> findSaleById(@RequestParam Integer id) {
+    public ResponseEntity<SaleGetOne> findSaleById(@RequestParam Long id) {
         return ResponseEntity.ok(new SaleGetOne(saleService.findSaleById(id)));
     }
 
     @PatchMapping(params = {"id", "saleStatus"})
-    public ResponseEntity<Void> updateSaleStatus(@RequestParam Integer id, @RequestParam String saleStatus) {
+    public ResponseEntity<Void> updateSaleStatus(@RequestParam Long id, @RequestParam String saleStatus) {
         saleService.updateSaleStatus(id, saleStatus);
         return ResponseEntity.noContent().build();
     }

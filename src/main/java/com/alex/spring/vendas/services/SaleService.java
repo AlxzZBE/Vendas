@@ -41,12 +41,12 @@ public class SaleService {
         return saleRepository.findAll(pageable);
     }
 
-    public Sale findSaleById(Integer id) {
+    public Sale findSaleById(Long id) {
         return saleRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Not Found Sale With id `%d`.".formatted(id)));
     }
 
-    public void updateSaleStatus(Integer id, String saleStatus) {
+    public void updateSaleStatus(Long id, String saleStatus) {
         Sale saleSaved = findSaleById(id);
         SaleStatus newSaleStatus = SaleStatus.newSaleStatus(saleStatus);
 

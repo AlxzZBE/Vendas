@@ -7,8 +7,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface SellerRepository extends JpaRepository<Seller, Integer> {
+public interface SellerRepository extends JpaRepository<Seller, Long> {
 
     Page<Seller> findByNameIgnoreCase(String name, Pageable pageable);
+
     Optional<Seller> findByCodeIgnoreCase(String code);
+
+    boolean existsByCode(String code);
 }

@@ -6,8 +6,8 @@ import jakarta.persistence.*;
 public class Address {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id_seq_gen")
-    @SequenceGenerator(name = "id_seq_gen", sequenceName = "id_seq_gen", initialValue = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "address_seq_gen")
+    @SequenceGenerator(name = "address_seq_gen", sequenceName = "address_seq_gen", initialValue = 1)
     @Column(nullable = false, updatable = false)
     private Long id;
     @ManyToOne(optional = false, fetch = FetchType.LAZY)

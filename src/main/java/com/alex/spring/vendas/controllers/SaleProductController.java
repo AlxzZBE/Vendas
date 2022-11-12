@@ -28,7 +28,7 @@ public class SaleProductController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> saveNewSaleProduct(@RequestBody @Valid SaleProductPost form) {
-        Integer saleProductSavedId = saleProductService.saveNewSaleProduct(form);
+        Long saleProductSavedId = saleProductService.saveNewSaleProduct(form);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().queryParam("id", saleProductSavedId).build().toUri();
         return ResponseEntity.created(uri).build();
     }
@@ -39,28 +39,28 @@ public class SaleProductController {
     }
 
     @GetMapping(params = {"saleId", "productId"})
-    public ResponseEntity<SaleProductGetOne> findSaleProductBySaleIdAndProductId(@RequestParam Integer saleId, @RequestParam Integer productId) {
+    public ResponseEntity<SaleProductGetOne> findSaleProductBySaleIdAndProductId(@RequestParam Long saleId, @RequestParam Long productId) {
         SaleProduct saleProductSaved = saleProductService.findSaleProductBySaleIdAndProductId(saleId, productId);
         return ResponseEntity.ok(new SaleProductGetOne(saleProductSaved));
     }
 
     @DeleteMapping(params = {"saleId", "productId"})
-    public ResponseEntity<Void> deleteSaleProductBySaleIdAndProductId(@RequestParam Integer saleId, @RequestParam Integer productId) {
+    public ResponseEntity<Void> deleteSaleProductBySaleIdAndProductId(@RequestParam Long saleId, @RequestParam Long productId) {
         saleProductService.deleteSaleProductBySaleIdAndProductId(saleId, productId);
         return ResponseEntity.noContent().build();
     }
 
     @PatchMapping(params = {"saleId", "productId", "amount"})
-    public ResponseEntity<Void> updateSaleProductAmountById(@RequestParam Integer saleId,
-                                                            @RequestParam Integer productId,
+    public ResponseEntity<Void> updateSaleProductAmountById(@RequestParam Long saleId,
+                                                            @RequestParam Long productId,
                                                             @RequestParam Integer amount) {
         saleProductService.updateSaleProductAmountById(saleId, productId, amount);
         return ResponseEntity.noContent().build();
     }
 
     @PatchMapping(params = {"saleId", "productId", "unitPrice"})
-    public ResponseEntity<Void> updateSaleProductUnitPriceById(@RequestParam Integer saleId,
-                                                               @RequestParam Integer productId,
+    public ResponseEntity<Void> updateSaleProductUnitPriceById(@RequestParam Long saleId,
+                                                               @RequestParam Long productId,
                                                                @RequestParam BigDecimal unitPrice) {
         saleProductService.updateSaleProductUnitPriceById(saleId, productId, unitPrice);
         return ResponseEntity.noContent().build();

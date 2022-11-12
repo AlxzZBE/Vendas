@@ -39,7 +39,7 @@ public class ProductController {
     }
 
     @GetMapping(params = "id", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ProductGetOne> findProductById(@RequestParam Integer id) {
+    public ResponseEntity<ProductGetOne> findProductById(@RequestParam Long id) {
         return ResponseEntity.ok(new ProductGetOne(productService.findProductById(id)));
     }
 
@@ -49,25 +49,25 @@ public class ProductController {
     }
 
     @PatchMapping(path = "{id}", params = "amount")
-    public ResponseEntity<Void> updateProductAmountById(@PathVariable Integer id, @RequestParam Long amount) {
+    public ResponseEntity<Void> updateProductAmountById(@PathVariable Long id, @RequestParam Long amount) {
         productService.updateProductAmountById(id, amount);
         return ResponseEntity.noContent().build();
     }
 
     @PatchMapping(path = "{id}", params = "price")
-    public ResponseEntity<Void> updateProductPriceById(@PathVariable Integer id, @RequestParam BigDecimal price) {
+    public ResponseEntity<Void> updateProductPriceById(@PathVariable Long id, @RequestParam BigDecimal price) {
         productService.updateProductPriceById(id, price);
         return ResponseEntity.noContent().build();
     }
 
     @PatchMapping(path = "{id}", params = "name")
-    public ResponseEntity<Void> updateProductNameById(@PathVariable Integer id, @RequestParam String name) {
+    public ResponseEntity<Void> updateProductNameById(@PathVariable Long id, @RequestParam String name) {
         productService.updateProductNameById(id, name);
         return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping(params = "id")
-    public ResponseEntity<Void> deleteProductbyId(@RequestParam Integer id) {
+    public ResponseEntity<Void> deleteProductbyId(@RequestParam Long id) {
         productService.deleteProductById(id);
         return ResponseEntity.noContent().build();
     }

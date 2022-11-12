@@ -7,18 +7,18 @@ import java.math.BigDecimal;
 public class SaleProductPost {
 
     @NotNull(message = "The field `productId` cannot be null.")
-    private Integer productId;
+    private Long productId;
     @NotNull(message = "The field `saleId` cannot be null.")
-    private Integer saleId;
+    private Long saleId;
     //@NotNull(message = "The field `amount` cannot be null.")
     private Integer amount = 1;
     private BigDecimal discount = BigDecimal.ZERO;
 
-    public Integer getProductId() {
+    public Long getProductId() {
         return productId;
     }
 
-    public Integer getSaleId() {
+    public Long getSaleId() {
         return saleId;
     }
 

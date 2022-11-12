@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 
 public class SaleGetList {
 
-    private Integer id;
+    private Long id;
     private String sellerCode;
     private String clientName;
     private BigDecimal discountTotal;
@@ -32,7 +32,7 @@ public class SaleGetList {
         this.amountProducts = sale.getSaleProducts().stream().map(SaleProduct::getAmount).reduce(0, Integer::sum);
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 

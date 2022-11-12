@@ -8,13 +8,13 @@ import java.math.BigDecimal;
 public class SaleProduct {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id_seq_gen")
-    @SequenceGenerator(name = "id_seq_gen", sequenceName = "id_seq_gen", initialValue = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "saleproduct_seq_gen")
+    @SequenceGenerator(name = "saleproduct_seq_gen", sequenceName = "saleproduct_seq_gen", initialValue = 1)
     @Column(nullable = false, updatable = false)
     private Long id;
     @MapsId
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "sale_id", unique = true)
+    @JoinColumn(name = "sale_id")
     private Sale sale;
     @OneToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")

@@ -30,7 +30,7 @@ public class ClientService {
         return clientRepository.findAll(pageable);
     }
 
-    public Client findClientById(Integer id) {
+    public Client findClientById(Long id) {
         return clientRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Not Found Client with id `%d`.".formatted(id)));
     }

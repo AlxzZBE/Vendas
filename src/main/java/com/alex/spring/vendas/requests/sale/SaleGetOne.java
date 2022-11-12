@@ -11,11 +11,11 @@ import java.util.List;
 
 public class SaleGetOne {
 
-    private Integer id;
+    private Long id;
     private String sellerName;
     private String sellerCode;
     private String clientName;
-    private Integer clientId;
+    private Long clientId;
     private String saleStatus;
     private BigDecimal discountTotal;
     private BigDecimal totalPrice;
@@ -37,7 +37,7 @@ public class SaleGetOne {
         this.saleProducts = sale.getSaleProducts().stream().map(SaleProductGetOne::new).toList();
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
@@ -49,7 +49,7 @@ public class SaleGetOne {
         return sellerName;
     }
 
-    public Integer getClientId() {
+    public Long getClientId() {
         return clientId;
     }
 
