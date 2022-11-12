@@ -26,7 +26,7 @@ public class SaleService {
         this.saleRepository = saleRepository;
     }
 
-    public Integer saveNewSale(SalePost salePost) {
+    public Long saveNewSale(SalePost salePost) {
         Seller sellerSaved = sellerService.findSellerByCode(salePost.getSellerCode());
         Client clientSaved = clientService.findClientById(salePost.getClientId());
 

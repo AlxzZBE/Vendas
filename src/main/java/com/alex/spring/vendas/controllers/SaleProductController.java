@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.math.BigDecimal;
 import java.net.URI;
 
 @RestController
@@ -54,6 +55,14 @@ public class SaleProductController {
                                                             @RequestParam Integer productId,
                                                             @RequestParam Integer amount) {
         saleProductService.updateSaleProductAmountById(saleId, productId, amount);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping(params = {"saleId", "productId", "unitPrice"})
+    public ResponseEntity<Void> updateSaleProductUnitPriceById(@RequestParam Integer saleId,
+                                                               @RequestParam Integer productId,
+                                                               @RequestParam BigDecimal unitPrice) {
+        saleProductService.updateSaleProductUnitPriceById(saleId, productId, unitPrice);
         return ResponseEntity.noContent().build();
     }
 }

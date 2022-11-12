@@ -11,7 +11,7 @@ public class Seller {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
-    private Integer id;
+    private Long id;
     @Column(nullable = false)
     private String name;
     @Column(nullable = false, unique = true, length = 6)
@@ -24,7 +24,7 @@ public class Seller {
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate registeredAt;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 

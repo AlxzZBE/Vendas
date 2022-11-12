@@ -8,12 +8,13 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
+@Embeddable
 public class Sale {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
-    private Integer id;
+    private Long id;
     @OneToOne
     private Seller seller;
     @OneToOne
@@ -32,7 +33,7 @@ public class Sale {
     @Column(nullable = false)
     private LocalDateTime createdAt;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 

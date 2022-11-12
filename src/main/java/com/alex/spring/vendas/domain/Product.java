@@ -12,7 +12,7 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
-    private Integer id;
+    private Long id;
     @Column(nullable = false, unique = true)
     private String name;
     @Column(nullable = false)
@@ -39,7 +39,7 @@ public class Product {
         return Objects.hash(id, name, category, imageName);
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 

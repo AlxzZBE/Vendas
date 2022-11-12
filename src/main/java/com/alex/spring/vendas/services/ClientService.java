@@ -19,7 +19,7 @@ public class ClientService {
         this.clientRepository = clientRepository;
     }
 
-    public Integer saveClient(Client client) {
+    public Long saveClient(Client client) {
         for (Address address : client.getAddress()) {
             address.setClient(client);
         }

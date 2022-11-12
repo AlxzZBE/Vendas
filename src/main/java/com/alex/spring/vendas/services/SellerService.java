@@ -16,7 +16,7 @@ public class SellerService {
         this.sellerRepository = sellerRepository;
     }
 
-    public Integer saveNewSeller(Seller newSeller) {
+    public Long saveNewSeller(Seller newSeller) {
         return sellerRepository.save(newSeller).getId();
     }
 

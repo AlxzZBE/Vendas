@@ -8,7 +8,7 @@ public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
-    private Integer id;
+    private Long id;
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id")
     private Client client;
@@ -26,7 +26,7 @@ public class Address {
     private String bairro;
     private String complemento;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 

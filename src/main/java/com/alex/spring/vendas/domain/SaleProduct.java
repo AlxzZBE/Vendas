@@ -5,16 +5,17 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@IdClass(SaleProductPK.class)
 public class SaleProduct {
 
     @Id
+    @GeneratedValue
+    private Long id;
+    @MapsId
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "id")
+    private Sale sale;
     @OneToOne
     private Product product;
-    @Id
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "sale_id")
-    private Sale sale;
     @Column(nullable = false)
     private Integer amount = 1;
     @Column(nullable = false)

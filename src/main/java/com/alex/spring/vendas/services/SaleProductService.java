@@ -29,7 +29,7 @@ public class SaleProductService {
     }
 
     @Transactional
-    public Integer saveNewSaleProduct(SaleProductPost saleProductPost) {
+    public Long saveNewSaleProduct(SaleProductPost saleProductPost) {
         Product productSaved = productService.findProductById(saleProductPost.getProductId());
         Sale saleSaved = saleService.findSaleById(saleProductPost.getSaleId());
         BigDecimal totalPrice = productSaved.getPrice().multiply(BigDecimal.valueOf(saleProductPost.getAmount()));
@@ -60,6 +60,9 @@ public class SaleProductService {
     public void deleteSaleProductBySaleIdAndProductId(Integer saleId, Integer productId) {
         SaleProduct saleProductSaved = findSaleProductBySaleIdAndProductId(saleId, productId);
         checkSaleStatusAndThrowException(saleProductSaved);
+
+        BigDecimal subtract = saleProductSaved.getSale().getTotalPrice().subtract(saleProductSaved.getTotalPrice());
+        saleProductSaved.getSale().setTotalPrice(subtract);
         saleProductRepository.delete(saleProductSaved);
     }
 
@@ -72,7 +75,35 @@ public class SaleProductService {
         SaleProduct saleProductSaved = findSaleProductBySaleIdAndProductId(saleId, productId);
         checkSaleStatusAndThrowException(saleProductSaved);
 
+        BigDecimal oldProductTotalPrice = saleProductSaved.getTotalPrice();
+        BigDecimal oldSaleTotalPrice = saleProductSaved.getSale().getTotalPrice();
+        saleProductSaved.getSale().setTotalPrice(oldSaleTotalPrice.subtract(oldProductTotalPrice));
+
         saleProductSaved.setAmount(amount);
+
+        BigDecimal newProductTotalPrice = saleProductSaved.getUnitPrice().multiply(BigDecimal.valueOf(amount));
+        BigDecimal newSaleTotalPrice = saleProductSaved.getSale().getTotalPrice();
+        saleProductSaved.setTotalPrice(newProductTotalPrice);
+        saleProductSaved.getSale().setTotalPrice(newSaleTotalPrice.add(newProductTotalPrice));
+
+        saleProductRepository.save(saleProductSaved);
+    }
+
+    public void updateSaleProductUnitPriceById(Integer saleId, Integer productId, BigDecimal unitPrice) {
+        SaleProduct saleProductSaved = findSaleProductBySaleIdAndProductId(saleId, productId);
+        checkSaleStatusAndThrowException(saleProductSaved);
+
+        BigDecimal oldProductTotalPrice = saleProductSaved.getTotalPrice();
+        BigDecimal oldSaleTotalPrice = saleProductSaved.getSale().getTotalPrice();
+        saleProductSaved.getSale().setTotalPrice(oldSaleTotalPrice.subtract(oldProductTotalPrice));
+
+        saleProductSaved.setUnitPrice(unitPrice);
+
+        BigDecimal newProductTotalPrice = saleProductSaved.getUnitPrice().multiply(BigDecimal.valueOf(saleProductSaved.getAmount()));
+        BigDecimal newSaleTotalPrice = saleProductSaved.getSale().getTotalPrice();
+        saleProductSaved.setTotalPrice(newSaleTotalPrice);
+        saleProductSaved.getSale().setTotalPrice(newSaleTotalPrice.add(newProductTotalPrice));
+        
         saleProductRepository.save(saleProductSaved);
     }
 

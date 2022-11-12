@@ -22,7 +22,7 @@ public class ProductService {
     }
 
     @Transactional
-    public Integer saveNewProduct(Product product, MultipartFile image) {
+    public Long saveNewProduct(Product product, MultipartFile image) {
         Product savedProduct = productRepository.save(product);
         String imageName = "img_" + savedProduct.getId() + ".jpg";
         savedProduct.setImageName(imageName);

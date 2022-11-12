@@ -11,7 +11,7 @@ public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
-    private Integer id;
+    private Long id;
     @Column(nullable = false, length = 100)
     private String name;
     @Enumerated(EnumType.STRING)
@@ -26,11 +26,11 @@ public class Client {
     @Column(nullable = false)
     private Integer purchases = 0;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
