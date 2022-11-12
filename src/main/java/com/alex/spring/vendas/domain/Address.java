@@ -6,11 +6,12 @@ import jakarta.persistence.*;
 public class Address {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id_seq_gen")
+    @SequenceGenerator(name = "id_seq_gen", sequenceName = "id_seq_gen", initialValue = 1)
     @Column(nullable = false, updatable = false)
     private Long id;
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "client_id")
+    @JoinColumn(name = "client_id", nullable = false)
     private Client client;
     @Column(nullable = false, length = 8)
     private String postalCode;

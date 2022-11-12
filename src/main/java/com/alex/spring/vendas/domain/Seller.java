@@ -9,7 +9,8 @@ import java.time.LocalDate;
 public class Seller {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id_seq_gen")
+    @SequenceGenerator(name = "id_seq_gen", sequenceName = "id_seq_gen", initialValue = 1)
     @Column(nullable = false, updatable = false)
     private Long id;
     @Column(nullable = false)

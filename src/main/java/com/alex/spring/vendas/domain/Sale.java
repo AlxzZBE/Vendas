@@ -12,12 +12,13 @@ import java.util.List;
 public class Sale {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id_seq_gen")
+    @SequenceGenerator(name = "id_seq_gen", sequenceName = "id_seq_gen", initialValue = 1)
     @Column(nullable = false, updatable = false)
     private Long id;
     @OneToOne
     private Seller seller;
-    @OneToOne
+    @OneToOne(optional = false)
     private Client client;
     @Column(nullable = false)
     private BigDecimal totalPrice = BigDecimal.ZERO;
