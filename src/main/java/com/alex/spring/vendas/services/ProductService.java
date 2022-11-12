@@ -1,6 +1,7 @@
 package com.alex.spring.vendas.services;
 
 import com.alex.spring.vendas.domain.Product;
+import com.alex.spring.vendas.exceptions.AlreadyExistsException;
 import com.alex.spring.vendas.exceptions.ArgumentNotValidException;
 import com.alex.spring.vendas.exceptions.NotFoundException;
 import com.alex.spring.vendas.repositories.ProductRepository;
@@ -23,6 +24,10 @@ public class ProductService {
 
     @Transactional
     public Long saveNewProduct(Product product, MultipartFile image) {
+        if (productRepository.existsByNameIgnoreCase(product.getName())) {
+            throw new AlreadyExistsException("Already exists a product with name `%s`.".formatted(product.getName()));
+        }
+
         Product savedProduct = productRepository.save(product);
         String imageName = "img_" + savedProduct.getId() + ".jpg";
         savedProduct.setImageName(imageName);

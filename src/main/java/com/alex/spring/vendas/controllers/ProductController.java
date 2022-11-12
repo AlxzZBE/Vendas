@@ -28,7 +28,7 @@ public class ProductController {
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Void> saveNewProduct(@RequestPart("form") @Valid ProductPost form, @RequestPart("image") MultipartFile image) {
-        Integer productSavedId = productService.saveNewProduct(form.newProduct(), image);
+        Long productSavedId = productService.saveNewProduct(form.newProduct(), image);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().queryParam("id", productSavedId).build().toUri();
         return ResponseEntity.created(uri).build();
     }
