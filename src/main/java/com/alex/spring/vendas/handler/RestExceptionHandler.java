@@ -1,5 +1,6 @@
 package com.alex.spring.vendas.handler;
 
+import com.alex.spring.vendas.exceptions.AlreadyExistsException;
 import com.alex.spring.vendas.exceptions.ArgumentNotValidException;
 import com.alex.spring.vendas.exceptions.BusinessLogicException;
 import com.alex.spring.vendas.exceptions.NotFoundException;
@@ -37,5 +38,12 @@ public class RestExceptionHandler {
         return new ResponseEntity<>(new ExceptionDetails(
                 ex, "Business Logic Exception, check the details and developer message.",
                 "Probably has a Business Logic that don't accept your request."), HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(AlreadyExistsException.class)
+    public ResponseEntity<ExceptionDetails> handlerAlreadyExistsException(AlreadyExistsException ex) {
+        return new ResponseEntity<>(new ExceptionDetails(
+                ex, "Already Exists Exception, check the details and developer message.",
+                "Probably has a unique field that already exits."), HttpStatus.CONFLICT);
     }
 }
